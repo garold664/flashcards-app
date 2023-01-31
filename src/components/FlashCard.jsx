@@ -1,30 +1,19 @@
-import { useContext, useRef } from 'react';
-import { FlashCardsContext } from '../context/flashcards-context';
+import { useRef } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { flashActions } from '../store/flashcards';
 
 import classes from './FlashCard.module.css';
 
 const FlashCard = (props) => {
-  console.log('FLASHCARD RENDER');
   const termRef = useRef();
   const defRef = useRef();
-  const flashcardsCtx = useContext(FlashCardsContext);
-  // const [cardId, setCardId] = useState(null);
+
+  const dispatch = useDispatch();
 
   const addFlashcard = (event) => {
     event.preventDefault();
-    // if (props.tempId) {
-    //   setCardId(props.tempId);
-    // }
-    // if (!cardId) {
-    //   console.log(cardId);
-    //   setCardId(Math.random());
-    // } else {
-    //   flashcardsCtx.addFlashcard(
-    //     termRef.current.value,
-    //     defRef.current.value,
-    //     cardId
-    //   );
-    // }
+
     if (
       termRef.current.value.trim() === '' ||
       defRef.current.value.trim() === ''
@@ -33,18 +22,20 @@ const FlashCard = (props) => {
     }
 
     if (!props.id) {
-      // setCardId(Math.random());
-      flashcardsCtx.addFlashcard(
-        termRef.current.value,
-        defRef.current.value,
-        Math.random()
+      dispatch(
+        flashActions.createFlashcard({
+          term: termRef.current.value,
+          def: defRef.current.value,
+          id: Math.random(),
+        })
       );
     } else {
-      // setCardId(props.id);
-      flashcardsCtx.addFlashcard(
-        termRef.current.value,
-        defRef.current.value,
-        props.id
+      dispatch(
+        flashActions.createFlashcard({
+          term: termRef.current.value,
+          def: defRef.current.value,
+          id: props.id,
+        })
       );
     }
   };

@@ -1,12 +1,11 @@
-import { useContext } from 'react';
-import { FlashCardsContext } from '../context/flashcards-context';
 import FlashCardView from './FlashCardView';
+import { useSelector } from 'react-redux';
 
 const FlashCardsView = () => {
-  const flashcardsCtx = useContext(FlashCardsContext);
+  const flashcards = useSelector((state) => state.flash.flashcards);
   return (
     <ul>
-      {flashcardsCtx.flashcards.map((card) => (
+      {flashcards.map((card) => (
         <FlashCardView
           term={card.term}
           def={card.def}
