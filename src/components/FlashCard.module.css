@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap');
+
+.flashcard {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  font-family: 'Kanit', sans-serif;
+  font-size: 25px;
+  background-color: rgb(173, 218, 175);
+}
+
+.flashcard input {
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  margin-bottom: 10px;
+}
