@@ -1,7 +1,7 @@
 import FlashCardView from './FlashCardView';
 import { useSelector } from 'react-redux';
 
-const FlashCardsView = () => {
+const FlashCardsView = (props) => {
   const flashcards = useSelector((state) => state.flash.flashcards);
   return (
     <ul>
@@ -13,6 +13,7 @@ const FlashCardsView = () => {
           id={card.id}
         />
       ))}
+      <li>{props.test}</li>
     </ul>
   );
 };

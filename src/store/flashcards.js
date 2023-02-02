@@ -34,6 +34,9 @@ const flashSlice = createSlice({
         });
       }
     },
+    updateState(state, action) {
+      state.flashcards = action.payload.flashcards;
+    },
   },
 });
 
