@@ -12,22 +12,22 @@ const FlashCards = () => {
   const dispatch = useDispatch();
   let additionalFlashcards = [];
 
-  useEffect(() => {
-    fetch(
-      'https://flashcards-app-c0c92-default-rtdb.firebaseio.com/flashcards.json'
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data) {
-          data = [];
-        }
-        dispatch(
-          flashActions.updateState({
-            flashcards: data,
-          })
-        );
-      });
-  }, [dispatch]);
+  // useEffect(() => {
+  //   fetch(
+  //     'https://flashcards-app-c0c92-default-rtdb.firebaseio.com/flashcards.json'
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (!data) {
+  //         data = [];
+  //       }
+  //       dispatch(
+  //         flashActions.updateState({
+  //           flashcards: data,
+  //         })
+  //       );
+  //     });
+  // }, [dispatch]);
 
   const addFlashcardsForm = () => {
     setNumberOfCards((prevNum) => prevNum + 1);
