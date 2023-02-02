@@ -11,6 +11,8 @@ import { uiActions } from './store/ui-slice';
 
 import Notification from './UI/Notification';
 
+let isInitial = true;
+
 const App = (props) => {
   const flashcards = useSelector((state) => state.flash.flashcards);
   const ui = useSelector((state) => state.ui);
@@ -49,7 +51,10 @@ const App = (props) => {
       // const responseData = await response.json();
     };
 
-    sendFlashcardsData();
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
 
     sendFlashcardsData().catch((error) => {
       dispatch(
@@ -66,11 +71,13 @@ const App = (props) => {
     <>
       <NavLink to="/">Main</NavLink>
       <NavLink to="/flashcards">FlashCards</NavLink>
-      <Notification
-        status={ui.notification.status}
-        title={ui.notification.title}
-        message={ui.notification.message}
-      />
+      {ui.notification && (
+        <Notification
+          status={ui.notification.status}
+          title={ui.notification.title}
+          message={ui.notification.message}
+        />
+      )}
       <Routes>
         {/* <FlashCardsForm /> */}
         <Route path="/" element={<FlashCards />} />
