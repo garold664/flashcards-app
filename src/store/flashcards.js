@@ -40,6 +40,8 @@ const flashSlice = createSlice({
   },
 });
 
+// action creators:
+
 export const flashActions = flashSlice.actions;
 
 export default flashSlice.reducer;
