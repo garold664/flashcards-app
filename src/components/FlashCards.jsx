@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 // import { flashActions } from '../store/flashcards';
 
@@ -9,25 +9,7 @@ const FlashCards = () => {
   const flashcards = useSelector((state) => state.flash.flashcards);
   const [numberOfCards, setNumberOfCards] = useState(1);
 
-  const dispatch = useDispatch();
   let additionalFlashcards = [];
-
-  // useEffect(() => {
-  //   fetch(
-  //     'https://flashcards-app-c0c92-default-rtdb.firebaseio.com/flashcards.json'
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (!data) {
-  //         data = [];
-  //       }
-  //       dispatch(
-  //         flashActions.updateState({
-  //           flashcards: data,
-  //         })
-  //       );
-  //     });
-  // }, [dispatch]);
 
   const addFlashcardsForm = () => {
     setNumberOfCards((prevNum) => prevNum + 1);

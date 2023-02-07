@@ -8,6 +8,7 @@ const initialFlashcardsState = {
     //   id: 0.8503243,
     // },
   ],
+  changed: false,
 };
 
 const flashSlice = createSlice({
@@ -15,12 +16,13 @@ const flashSlice = createSlice({
   initialState: initialFlashcardsState,
   reducers: {
     createFlashcard(state, action) {
+      state.changed = true;
       const existingCardIndex = state.flashcards.findIndex(
         (card) => card.id === action.payload.id
       );
 
       if (existingCardIndex !== -1) {
-        const existingCard = state.flashcards[existingCardIndex];
+        let existingCard = state.flashcards[existingCardIndex];
 
         if (
           existingCard.term !== action.payload.term ||

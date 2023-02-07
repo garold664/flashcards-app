@@ -17,6 +17,7 @@ let isInitial = true;
 
 const App = (props) => {
   const flashcards = useSelector((state) => state.flash.flashcards);
+  const changed = useSelector((state) => state.flash.changed);
   const ui = useSelector((state) => state.ui);
   const dispatch = useDispatch();
 
@@ -29,8 +30,11 @@ const App = (props) => {
       isInitial = false;
       return;
     }
-    dispatch(sendFlashcardsData(flashcards));
-  }, [flashcards, dispatch]);
+
+    if (changed) {
+      dispatch(sendFlashcardsData(flashcards));
+    }
+  }, [flashcards, dispatch, changed]);
 
   return (
     <>
