@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { flashActions } from '../store/flashcards';
+// import { flashActions } from '../store/flashcards';
 
 import FlashCard from './FlashCard';
 

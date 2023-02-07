@@ -20,12 +20,20 @@ const flashSlice = createSlice({
       );
 
       if (existingCardIndex !== -1) {
-        console.log(existingCardIndex);
-        state.flashcards[existingCardIndex] = {
-          term: action.payload.term,
-          def: action.payload.def,
-          id: action.payload.id,
-        };
+        const existingCard = state.flashcards[existingCardIndex];
+
+        if (
+          existingCard.term !== action.payload.term ||
+          existingCard.def !== action.payload.def
+        ) {
+          existingCard = {
+            term: action.payload.term,
+            def: action.payload.def,
+            id: action.payload.id,
+          };
+        } else {
+          return;
+        }
       } else {
         state.flashcards.push({
           term: action.payload.term,
@@ -35,7 +43,8 @@ const flashSlice = createSlice({
       }
     },
     updateState(state, action) {
-      state.flashcards = action.payload.flashcards;
+      console.log(action.payload);
+      state.flashcards = action.payload;
     },
   },
 });

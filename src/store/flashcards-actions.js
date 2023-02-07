@@ -1,6 +1,37 @@
 import { uiActions } from './ui-slice';
+import { flashActions } from './flashcards';
 
-const sendFlashcardsData = (flashcards) => {
+export const fetchFlashcardsData = () => {
+  return async (dispatch) => {
+    const fetchData = async () => {
+      const response = await fetch(
+        'https://flashcards-app-c0c92-default-rtdb.firebaseio.com/flashcards.json'
+      );
+
+      if (!response.ok) {
+        throw new Error('Could not fetch cart data!');
+      }
+      const data = await response.json();
+
+      return data;
+    };
+
+    try {
+      const flashcardsData = await fetchData();
+      dispatch(flashActions.updateState(flashcardsData));
+    } catch (error) {
+      dispatch(
+        uiActions.showNotification({
+          status: 'error',
+          title: 'error',
+          message: error.message,
+        })
+      );
+    }
+  };
+};
+
+export const sendFlashcardsData = (flashcards) => {
   return async (dispatch) => {
     dispatch(
       uiActions.showNotification({
@@ -38,11 +69,9 @@ const sendFlashcardsData = (flashcards) => {
         uiActions.showNotification({
           status: 'error',
           title: 'error',
-          message: 'error',
+          message: error.message,
         })
       );
     }
   };
 };
-
-export default sendFlashcardsData;

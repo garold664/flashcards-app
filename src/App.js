@@ -7,7 +7,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import FlashCards from './components/FlashCards';
 import FlashCardsView from './components/FlashCardsView';
 
-import sendFlashcardsData from './store/flashcards-actions';
+import {
+  fetchFlashcardsData,
+  sendFlashcardsData,
+} from './store/flashcards-actions';
 import Notification from './UI/Notification';
 
 let isInitial = true;
@@ -18,12 +21,15 @@ const App = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(sendFlashcardsData(flashcards));
+    dispatch(fetchFlashcardsData());
+  }, [dispatch]);
 
+  useEffect(() => {
     if (isInitial) {
       isInitial = false;
       return;
     }
+    dispatch(sendFlashcardsData(flashcards));
   }, [flashcards, dispatch]);
 
   return (
