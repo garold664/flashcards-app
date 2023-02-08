@@ -5,20 +5,31 @@ export const fetchFlashcardsData = () => {
   return async (dispatch) => {
     const fetchData = async () => {
       const response = await fetch(
-        'https://flashcards-app-c0c92-default-rtdb.firebaseio.com/flashcards.json'
+        'https://flashcards-app-c0c92-default-rtdb.firebaseio.com/flashcards/sets.json'
       );
 
       if (!response.ok) {
         throw new Error('Could not fetch cart data!');
       }
       const data = await response.json();
-
       return data;
     };
 
     try {
       const flashcardsData = await fetchData();
-      dispatch(flashActions.updateState(flashcardsData));
+      console.log(flashcardsData);
+      const sets = [];
+      console.log(sets);
+      for (const key in flashcardsData) {
+        sets.push({
+          id: key,
+          name: flashcardsData[key].name,
+          description: flashcardsData[key].description,
+          flashcards: flashcardsData[key].flashcards,
+        });
+      }
+      console.log(sets[0].flashcards);
+      dispatch(flashActions.updateState(sets));
     } catch (error) {
       dispatch(
         uiActions.showNotification({
@@ -31,7 +42,15 @@ export const fetchFlashcardsData = () => {
   };
 };
 
-export const sendFlashcardsData = (flashcards) => {
+export const sendFlashcardsData = (sets) => {
+  const transformedSets = {};
+  sets.forEach((el) => {
+    transformedSets[el.id] = {
+      name: el.name,
+      description: el.description,
+      flashcards: el.flashcards,
+    };
+  });
   return async (dispatch) => {
     dispatch(
       uiActions.showNotification({
@@ -43,10 +62,10 @@ export const sendFlashcardsData = (flashcards) => {
 
     const sendRequest = async () => {
       const response = await fetch(
-        'https://flashcards-app-c0c92-default-rtdb.firebaseio.com/flashcards.json',
+        'https://flashcards-app-c0c92-default-rtdb.firebaseio.com/flashcards/sets.json',
         {
           method: 'PUT',
-          body: JSON.stringify(flashcards),
+          body: JSON.stringify(transformedSets),
         }
       );
 

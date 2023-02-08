@@ -27,6 +27,7 @@ const FlashCard = (props) => {
           term: termRef.current.value,
           def: defRef.current.value,
           id: Math.random(),
+          setId: props.setId,
         })
       );
     } else {

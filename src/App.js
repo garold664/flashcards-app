@@ -12,11 +12,14 @@ import {
   sendFlashcardsData,
 } from './store/flashcards-actions';
 import Notification from './UI/Notification';
+import NewSetForm from './components/NewSetForm';
+import Sets from './components/Sets';
 
 let isInitial = true;
 
 const App = (props) => {
-  const flashcards = useSelector((state) => state.flash.flashcards);
+  const sets = useSelector((state) => state.flash.sets);
+  // const flashcards = useSelector((state) => state.flash.sets[0].flashcards);
   const changed = useSelector((state) => state.flash.changed);
   const ui = useSelector((state) => state.ui);
   const dispatch = useDispatch();
@@ -32,14 +35,17 @@ const App = (props) => {
     }
 
     if (changed) {
-      dispatch(sendFlashcardsData(flashcards));
+      dispatch(sendFlashcardsData(sets));
     }
-  }, [flashcards, dispatch, changed]);
+  }, [sets, dispatch, changed]);
 
   return (
     <>
       <NavLink to="/">Main</NavLink>
+      <br />
       <NavLink to="/flashcards">FlashCards</NavLink>
+      <br />
+      <NavLink to="/sets">Sets</NavLink>
       {ui.notification && (
         <Notification
           status={ui.notification.status}
@@ -49,10 +55,13 @@ const App = (props) => {
       )}
       <Routes>
         {/* <FlashCardsForm /> */}
-        <Route path="/" element={<FlashCards />} />
+        {/* <Route path="/" element={<FlashCards />} /> */}
         <Route path="/flashcards" element={<FlashCardsView test="my test" />} />
+        <Route path="/sets" element={<Sets />} />
+        <Route path="/sets/set" element={<FlashCards />} />
         <Route path="/*" element={<h1>404</h1>} />
       </Routes>
+      <NewSetForm />
     </>
   );
 };
