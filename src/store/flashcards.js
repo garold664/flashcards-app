@@ -68,3 +68,5 @@ const flashSlice = createSlice({
 export const flashActions = flashSlice.actions;
 
 export default flashSlice.reducer;
+
+// reducers should never calculate random values!!!  https://redux.js.org/tutorials/essentials/part-4-using-data#preparing-action-payloads
