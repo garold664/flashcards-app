@@ -41,11 +41,11 @@ const App = (props) => {
 
   return (
     <>
-      <NavLink to="/">Main</NavLink>
+      <NavLink to=".">Main</NavLink>
       <br />
-      <NavLink to="/flashcards">FlashCards</NavLink>
+      <NavLink to="flashcards">FlashCards</NavLink>
       <br />
-      <NavLink to="/sets">Sets</NavLink>
+      <NavLink to="sets">Sets</NavLink>
       {ui.notification && (
         <Notification
           status={ui.notification.status}
